@@ -48,3 +48,12 @@ ylabel('Diesel Output [kWh]');
 title('Diesel Generator Output (10% of Yearly Demand)');
 legend;
 grid on;
+
+% Display results
+disp('===================================');
+disp('Diesel Generator Allowed Energy Output Per Year');
+disp('===================================');
+fprintf('2022: %.2f kWh\n', diesel_max_2022);
+fprintf('2023: %.2f kWh\n', diesel_max_2023);
+fprintf('2024: %.2f kWh\n', diesel_max_2024);
+disp('===================================');
