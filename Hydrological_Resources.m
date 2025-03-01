@@ -25,6 +25,9 @@ total_power = cell(1, length(configs));
 % We'll use the months from the first file as the reference for aggregated plots
 months_aggregated = [];
 
+% Initialize total generated power for display
+total_power_generated = zeros(length(configs), length(years));
+
 % Loop over each river file
 for r = 1:length(river_files)
     % Read data from CSV file
@@ -58,6 +61,9 @@ for r = 1:length(river_files)
         fprintf('\nPower generated (in watts) for each year and month on %s with a %s:\n', ...
             river_names(r), configs(c).name);
         disp(power_generated);
+        
+        % Accumulate total power generated for final display
+        total_power_generated(c, :) = total_power_generated(c, :) + sum(power_generated, 1);
         
         % Plot power generated for each month across all years for this river & method
         figure;
@@ -101,3 +107,15 @@ for c = 1:length(configs)
     grid on;
     hold off;
 end
+
+% Display total power generated summary
+disp('===================================');
+disp('Total Power Generated Per Year (Summed Across Rivers)');
+disp('===================================');
+for c = 1:length(configs)
+    fprintf('\nConfiguration: %s\n', configs(c).name);
+    for y = 1:length(years)
+        fprintf('%d: %.2f kWh\n', years(y), total_power_generated(c, y) / 1000); % Convert watts to kWh
+    end
+end
+disp('===================================');
