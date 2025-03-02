@@ -2,10 +2,10 @@
 data = readtable('monkey-data/demand.csv', 'VariableNamingRule', 'preserve');
 
 % Extract data
-hours = data{:, 1};  % First column is hours
-demand_2022 = data{:, 2}; % Energy demand for 2022
-demand_2023 = data{:, 3}; % Energy demand for 2023
-demand_2024 = data{:, 4}; % Energy demand for 2024
+hours = data{2:end, 1};  % First column is hours
+demand_2022 = data{2:end, 2}; % Energy demand for 2022
+demand_2023 = data{2:end, 3}; % Energy demand for 2023
+demand_2024 = data{2:end, 4}; % Energy demand for 2024
 
 % Calculate total yearly demand
 total_demand_2022 = sum(demand_2022);
