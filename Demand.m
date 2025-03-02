@@ -5,10 +5,10 @@ data = readtable('monkey-data/demand.csv', 'VariableNamingRule', 'preserve');
 disp(data(1:5, :));
 
 % Extract data using actual column names
-hours = data{:, 1};  % First column is hours
-demand_2022 = data{:, 2}; % Second column is 2022
-demand_2023 = data{:, 3}; % Third column is 2023
-demand_2024 = data{:, 4}; % Fourth column is 2024
+hours = data{2:end, 1};  % First column is hours
+demand_2022 = data{2:end, 2}; % Second column is 2022 demand
+demand_2023 = data{2:end, 3}; % Third column is 2023 demand
+demand_2024 = data{2:end, 4}; % Fourth column is 2024 demand
 
 % Plot the demand
 figure;
@@ -25,16 +25,24 @@ title('Hourly Energy Demand (Last Three Years)');
 legend;
 grid on;
 
-% Compute total demand per year
+% Compute total, mean, and max demand per year
 total_demand_2022 = sum(demand_2022);
 total_demand_2023 = sum(demand_2023);
 total_demand_2024 = sum(demand_2024);
 
+mean_demand_2022 = mean(demand_2022);
+mean_demand_2023 = mean(demand_2023);
+mean_demand_2024 = mean(demand_2024);
+
+max_demand_2022 = max(demand_2022(:));  % Ensure it's applied to numerical data
+max_demand_2023 = max(demand_2023(:));
+max_demand_2024 = max(demand_2024(:));
+
 % Display results
 disp('===================================');
-disp('Total Energy Demand Per Year');
+disp('Total, Mean, and Max Energy Demand Per Year');
 disp('===================================');
-fprintf('2022: %.2f kWh\n', total_demand_2022);
-fprintf('2023: %.2f kWh\n', total_demand_2023);
-fprintf('2024: %.2f kWh\n', total_demand_2024);
+fprintf('2022: Total = %.2f kWh, Mean = %.2f kWh, Max = %.2f kWh\n', total_demand_2022, mean_demand_2022, max_demand_2022);
+fprintf('2023: Total = %.2f kWh, Mean = %.2f kWh, Max = %.2f kWh\n', total_demand_2023, mean_demand_2023, max_demand_2023);
+fprintf('2024: Total = %.2f kWh, Mean = %.2f kWh, Max = %.2f kWh\n', total_demand_2024, mean_demand_2024, max_demand_2024);
 disp('===================================');
