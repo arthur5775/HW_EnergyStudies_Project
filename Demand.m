@@ -38,11 +38,15 @@ max_demand_2022 = max(demand_2022(:));  % Ensure it's applied to numerical data
 max_demand_2023 = max(demand_2023(:));
 max_demand_2024 = max(demand_2024(:));
 
+min_demand_2022 = min(demand_2022);
+min_demand_2023 = min(demand_2023);
+min_demand_2024 = min(demand_2024);
+
 % Display results
 disp('===================================');
-disp('Total, Mean, and Max Energy Demand Per Year');
+disp('Total, Mean, Max and Min Energy Demand Per Year');
 disp('===================================');
-fprintf('2022: Total = %.2f kWh, Mean = %.2f kWh, Max = %.2f kWh\n', total_demand_2022, mean_demand_2022, max_demand_2022);
-fprintf('2023: Total = %.2f kWh, Mean = %.2f kWh, Max = %.2f kWh\n', total_demand_2023, mean_demand_2023, max_demand_2023);
-fprintf('2024: Total = %.2f kWh, Mean = %.2f kWh, Max = %.2f kWh\n', total_demand_2024, mean_demand_2024, max_demand_2024);
+fprintf('2022: Total = %.2f kWh, Mean = %.2f kWh, Max = %.2f kWh, Min = %.2f kWh\n', total_demand_2022, mean_demand_2022, max_demand_2022, min_demand_2022);
+fprintf('2023: Total = %.2f kWh, Mean = %.2f kWh, Max = %.2f kWh, Min = %.2f kWh\n', total_demand_2023, mean_demand_2023, max_demand_2023, min_demand_2023);
+fprintf('2024: Total = %.2f kWh, Mean = %.2f kWh, Max = %.2f kWh, Min = %.2f kWh\n', total_demand_2024, mean_demand_2024, max_demand_2024, min_demand_2024);
 disp('===================================');
