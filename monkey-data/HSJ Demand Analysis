@@ -1,0 +1,111 @@
+% Read the CSV file
+data = readtable('monkey-data/demand.csv', 'VariableNamingRule', 'preserve');
+
+% Display the first few rows to check column names
+disp(data(1:5, :));
+
+% Extract data using actual column names
+
+
+hours = data{1:end, 1};  % First column is hours
+demand_2022 = data{1:end, 2}; % Second column is 2022 demand
+demand_2023 = data{2:end, 3}; % Third column is 2023 demand
+demand_2024 = data{2:end, 4}; % Fourth column is 2024 demand
+
+
+for i=0:364
+    daily_total_2022=0;
+    daily_total_2023=0;
+    daily_total_2024=0;
+
+    daily_max_2022=0;
+    daily_max_2023=0;
+    daily_max_2024=0;
+
+
+    for j=1:24
+        hourcount = i*24+j+1;
+        daily_total_2022 = daily_total_2022 + demand_2022(hourcount);
+        daily_total_2023 = daily_total_2023 + demand_2023(hourcount-1);
+        daily_total_2024 = daily_total_2024 + demand_2024(hourcount-1);
+        if demand_2022(hourcount) > daily_max_2022;
+            daily_max_2022 = demand_2022(hourcount);
+            peakhour_2022 =j;
+        end
+        if demand_2023(hourcount-1) > daily_max_2023;
+            daily_max_2023 = demand_2023(hourcount-1);
+            peakhour_2023 =j;
+        end
+        if demand_2024(hourcount-1) > daily_max_2024;
+            daily_max_2024 = demand_2024(hourcount-1);
+            peakhour_2024 =j;
+
+        end
+
+    end
+    daily_2022(i+1)= daily_total_2022;
+    dailypeak2022(i+1)= daily_max_2022;
+    dailypeakhour2022(i+1)= peakhour_2022;
+    daily_2023(i+1)= daily_total_2023;
+    dailypeak2023(i+1)= daily_max_2023;
+    dailypeakhour2023(i+1)= peakhour_2023;
+    daily_2024(i+1)= daily_total_2024;
+    dailypeak2024(i+1)= daily_max_2024;
+    dailypeakhour2024(i+1)= peakhour_2024;
+    days(i+1)=i+1
+end
+
+%disp(dailypeak2022(1))
+%disp(dailypeak2023(1))
+%disp(dailypeak2024(1))
+
+
+
+% Plot the demand
+figure;
+
+scatter(days,daily_2022, 8,'filled','DisplayName', '2022');
+hold on;
+scatter(days,daily_2023, 8,'filled','DisplayName', '2023');
+scatter(days,daily_2024, 8,'filled','DisplayName', '2024');
+hold off;
+
+% Customize the plot
+xlabel('Day of the Year');
+ylabel(' Daily Energy Used [kWh]');
+title('Daily Energy Demand (Last Three Years)');
+legend;
+grid on;
+
+
+% Plot the Peak
+figure;
+
+scatter(days,dailypeak2022, 8,'filled','DisplayName', '2022');
+hold on;
+scatter(days,dailypeak2023, 8,'filled','DisplayName', '2023');
+scatter(days,dailypeak2024, 8,'filled','DisplayName', '2024');
+hold off;
+
+% Customize the plot
+xlabel('Day of the Year');
+ylabel(' Daily Peak Energy Demand [kW]');
+title('Daily Peak Energy Demand [kW] (Last Three Years)');
+legend;
+grid on;
+
+% Plot the Peak Hour
+figure;
+
+scatter(days,dailypeakhour2022, 8,'filled','DisplayName', '2022');
+hold on;
+scatter(days,dailypeakhour2023, 8,'filled','DisplayName', '2023');
+scatter(days,dailypeakhour2024, 8,'filled','DisplayName', '2024');
+hold off;
+
+% Customize the plot
+xlabel('Day of the Year');
+ylabel(' Hour of Peak Demand');
+title('Daily Hour of Peak Energy Demand (Last Three Years)');
+legend;
+grid on;
